@@ -1,0 +1,107 @@
+\documentclass{standalone}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+
+\pgfmathsetmacro{\C}{34.3e-9}      % 34.3 * 10^(-9) Ф
+\pgfmathsetmacro{\L}{0.11}          % 0.11 Гн
+\pgfmathsetmacro{\R}{0.63*1000}     % 630 Ом (обновлено)
+\pgfmathsetmacro{\E}{0.21}           % 0.21 В
+
+\begin{document}
+	
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=16cm,
+			height=10cm,
+			xlabel={$w, \text{рад/с}$},
+			ylabel={$U_r, \text{В}$},
+			xmin=9000, xmax=32000,
+			ymin=0.025, ymax=0.225,
+			grid=both,
+			minor x tick num=10,
+			minor y tick num=15,
+			minor grid style={gray!85,  thin},
+			grid style={black!50, thin},
+			major grid style={black!70, thin},
+			major tick length=2pt,
+			minor tick length=1pt,
+			axis lines=left,
+			axis line style={-stealth, thick, black},
+			tick style={black, thick},
+			xmajorgrids=true,
+			ymajorgrids=true,
+			xminorgrids=true,
+			yminorgrids=true,
+			xtick distance=1000,  % Деления через каждые 2000 единиц
+			ytick distance=0.025,
+			scale only axis
+			]
+			
+			% Добавляем точки
+			\addplot[only marks, mark=*, mark size=1pt, color=blue] coordinates {
+				(9424, 0.0599)
+				(10681, 0.076)
+				(11938, 0.097)
+				(12566, 0.11)
+				(13823, 0.1409)
+				(15079, 0.1748)
+				(16336, 0.1957)
+				(16399, 0.1961)
+				(16430, 0.1962)
+				(16461, 0.1963)
+				(16493, 0.1965)
+				(16524, 0.1965)
+				(16556, 0.1966)
+				(16587, 0.1966)
+				(16619, 0.1966)
+				(16650, 0.1967)
+				(16718, 0.1967)
+				(16744, 0.1965)
+				(16776, 0.1965)
+				(16838, 0.1962)
+				(16901, 0.1961)
+				(16964, 0.1956)
+				(17027, 0.1952)
+				(17090, 0.1947)
+				(17153, 0.1942)
+				(17215, 0.1936)
+				(17247, 0.1932)
+				(17278, 0.1929)
+				(17310, 0.1925)
+				(17341, 0.1923)
+				(17467, 0.1906)
+				(17592, 0.1887)
+				(17718, 0.1869)
+				(17969, 0.1824)
+				(18346, 0.1751)
+				(18723, 0.1673)
+				(19792, 0.1455)
+				(21991, 0.1104)
+				(25761, 0.0764)
+				(30787, 0.0542)
+				
+			};
+			\addlegendentry{$U_r - \text{практика}$}
+			
+			% U_C (напряжение на конденсаторе)
+			\addplot[
+			domain=9000:32000,
+			samples=300,
+			smooth,
+			thick,
+			color=blue
+			] 
+			{ 0.21 * 630 / sqrt( 630^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 )};
+			\addlegendentry{$U_r - \text{теория}$}
+		\end{axis}
+	\end{tikzpicture}
+\end{document}

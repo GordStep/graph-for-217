@@ -1,0 +1,184 @@
+\documentclass{standalone}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=16cm,
+			height=10cm,
+			xlabel={$w, \text{рад/с}$},
+			ylabel={$U, \text{В}$},
+			xmin=9000, xmax=32000,
+			ymin=0, ymax=4.25,
+			grid=both,
+			minor x tick num=9,
+			minor y tick num=9,
+			minor grid style={gray!85,  thin},
+			grid style={black!50, thin},
+			major grid style={black!70, thin},
+			major tick length=2pt,
+			minor tick length=1pt,
+			axis lines=left,
+			axis line style={-stealth, thick, black},
+			tick style={black, thick},
+			xmajorgrids=true,
+			ymajorgrids=true,
+			xminorgrids=true,
+			yminorgrids=true,
+			xtick distance=1000,  % Деления через каждые 2000 единиц
+			ytick distance=0.25,
+			legend pos=north east,           % Позиция легенды
+			legend style={
+				font=\small,                 % Размер шрифта
+				draw=black,                  % Рамка вокруг легенды
+				fill=white,                  % Белый фон
+				rounded corners=2pt          % Скругленные углы
+			},
+			scale only axis
+			]
+			
+			% Добавляем точки
+			\addplot[only marks, mark=*, mark size=1pt, color=blue] coordinates {
+				(9424, 0.0992)
+				(10681, 0.1471)
+				(11938, 0.2221)
+				(12566, 0.2771)
+				(13823, 0.4589)
+				(15079, 0.8895)
+				(16336, 2.1221)
+				(16399, 2.1794)
+				(16430, 2.201)
+				(16461, 2.225)
+				(16493, 2.2428)
+				(16524, 2.2569)
+				(16587, 2.2738)
+				(16650, 2.2755)
+				(16713, 2.2622)
+				(16776, 2.2953)
+				(16838, 2.1969)
+				(16901, 2.1489)
+				(16964, 2.0936)
+				(17090, 1.9708)
+				(17215, 1.8422)
+				(17467, 1.5999)
+				(17718, 1.3972)
+				(17969, 1.2346)
+				(18849, 0.8791)
+				(22619, 0.4533)
+				(26389, 0.3472)
+				(31415, 0.2913)
+			};
+			\addlegendentry{$U_l$ — практика}
+			
+			% Теоретическая кривая
+			\addplot[
+			domain=9000:32000,
+			samples=200,
+			smooth,
+			thick,
+			color=blue
+			] 
+			{ x * 0.18 * 0.21 / sqrt( (0.121*1000)^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) };
+			\addlegendentry{$U_l$ — теория}
+			
+			% Добавляем точки
+			\addplot[only marks, mark=*, mark size=1pt, color=red] coordinates {
+				(9424, 0.0116)
+				(10681, 0.0154)
+				(11938, 0.0209)
+				(12566, 0.0249)
+				(13823, 0.0376)
+				(15079, 0.0671)
+				(16336, 0.1478)
+				(16399, 0.1514)
+				(16430, 0.1528)
+				(16461, 0.1541)
+				(16493, 0.1552)
+				(16524, 0.1559)
+				(16587, 0.1566)
+				(16650, 0.1563)
+				(16713, 0.1549)
+				(16776, 0.1527)
+				(16838, 0.1496)
+				(16901, 0.146)
+				(16964, 0.1416)
+				(17090, 0.1327)
+				(17215, 0.123)
+				(17467, 0.1052)
+				(17718, 0.0905)
+				(17969, 0.0788)
+				(18849, 0.0534)
+				(22619, 0.0225)
+				(26389, 0.0145)
+				(31415, 0.0101)
+			};
+			\addlegendentry{$U_r$ — практика}
+			
+			% Теоретическая кривая
+			\addplot[
+			domain=9000:32000,
+			samples=200,
+			smooth,
+			thick,
+			color=red
+			] 
+			{ 0.21 * (0.121*1000) / sqrt( (0.121*1000)^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) };
+			\addlegendentry{$U_r$ — теория}
+			
+				% Добавляем точки
+			\addplot[only marks, mark=*, mark size=1pt, color=orange] coordinates {
+				(9424, 0.3034)
+				(10681, 0.3566)
+				(11938, 0.4305)
+				(12566, 0.4849)
+				(13823, 0.6632)
+				(15079, 1.0793)
+				(16336, 2.1873)
+				(16399, 2.2289)
+				(16430, 2.2452)
+				(16461, 2.2579)
+				(16493, 2.2672)
+				(16524, 2.2726)
+				(16587, 2.2726)
+				(16650, 2.2569)
+				(16713, 2.227)
+				(16776, 2.1841)
+				(16838, 2.1308)
+				(16901, 2.069)
+				(16964, 2.0008)
+				(17090, 1.8564)
+				(17215, 1.7106)
+				(17467, 1.4437)
+				(17718, 1.2258)
+				(17969, 1.0533)
+				(18849, 0.686)
+				(22619, 0.2458)
+				(26389, 0.1384)
+				(31415, 0.0818)
+			};
+			\addlegendentry{$U_c$ — практика}
+			
+			% Теоретическая кривая
+			\addplot[
+			domain=9000:32000,
+			samples=200,
+			smooth,
+			thick,
+			color=orange
+			] 
+			{ 0.21 / (x * 34.3e-9 * sqrt( (0.121*1000)^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) )};
+			\addlegendentry{$U_c$ — теория}
+		\end{axis}
+	\end{tikzpicture}
+\end{document}

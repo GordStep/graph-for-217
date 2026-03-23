@@ -1,0 +1,87 @@
+\documentclass{standalone}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+
+\begin{document}
+	
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=16cm,
+			height=10cm,
+			xlabel={$w, \text{рад/с}$},
+			ylabel={$U_l, \text{В}$},
+			xmin=9000, xmax=32000,
+			ymin=0, ymax=4.25,
+			grid=both,
+			minor x tick num=9,
+			minor y tick num=9,
+			minor grid style={gray!85,  thin},
+			grid style={black!50, thin},
+			major grid style={black!70, thin},
+			major tick length=2pt,
+			minor tick length=1pt,
+			axis lines=left,
+			axis line style={-stealth, thick, black},
+			tick style={black, thick},
+			xmajorgrids=true,
+			ymajorgrids=true,
+			xminorgrids=true,
+			yminorgrids=true,
+			xtick distance=1000,  % Деления через каждые 2000 единиц
+			ytick distance=0.25,
+			scale only axis
+			]
+			
+			% Добавляем точки
+			\addplot[only marks, mark=*, mark size=1pt, color=blue] coordinates {
+				(9424, 0.0992)
+				(10681, 0.1471)
+				(11938, 0.2221)
+				(12566, 0.2771)
+				(13823, 0.4589)
+				(15079, 0.8895)
+				(16336, 2.1221)
+				(16399, 2.1794)
+				(16430, 2.201)
+				(16461, 2.225)
+				(16493, 2.2428)
+				(16524, 2.2569)
+				(16587, 2.2738)
+				(16650, 2.2755)
+				(16713, 2.2622)
+				(16776, 2.2953)
+				(16838, 2.1969)
+				(16901, 2.1489)
+				(16964, 2.0936)
+				(17090, 1.9708)
+				(17215, 1.8422)
+				(17467, 1.5999)
+				(17718, 1.3972)
+				(17969, 1.2346)
+				(18849, 0.8791)
+				(22619, 0.4533)
+				(26389, 0.3472)
+				(31415, 0.2913)
+			};
+			
+			% Теоретическая кривая
+			\addplot[
+			domain=9000:32000,
+			samples=200,
+			smooth,
+			thick,
+			color=blue
+			] 
+			{ x * 0.18 * 0.21 / sqrt( (0.121*1000)^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) };
+		\end{axis}
+	\end{tikzpicture}
+\end{document}
