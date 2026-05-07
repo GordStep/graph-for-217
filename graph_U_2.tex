@@ -25,7 +25,7 @@
 			xlabel={$w, \text{рад/с}$},
 			ylabel={$U, \text{В}$},
 			xmin=9000, xmax=32000,
-			ymin=0, ymax=0.8,
+			ymin=0, ymax=0.65,
 			grid=both,
 			minor x tick num=9,
 			minor y tick num=9,
@@ -92,16 +92,16 @@
 			};
 			\addlegendentry{$U_l - \text{практика}$}
 			
-			% U_C (напряжение на конденсаторе)
+			% Теоретическая кривая U_L
 			\addplot[
-			domain=9000:32000,
-			samples=300,
+			domain=1000:50000,
+			samples=200,
 			smooth,
 			thick,
 			color=blue
 			] 
-			{ x * 0.18 * 0.2 / sqrt( 630^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 )};
-			\addlegendentry{$U_l - \text{теория}$}
+			{ x * 0.105545 * 0.21 / sqrt( (0.63*1000)^2 + (x * 0.105545 - 1/(x * 34.3e-9) )^2 ) };
+			\addlegendentry{$U_L$ — теория}
 			
 			% Добавляем точки
 			\addplot[only marks, mark=*, mark size=1pt, color=red] coordinates {
@@ -149,16 +149,16 @@
 			};
 			\addlegendentry{$U_c - \text{практика}$}
 			
-			% U_C (напряжение на конденсаторе)
+			% Теоретическая кривая U_C
 			\addplot[
-			domain=9000:32000,
-			samples=300,
+			domain=1000:50000,
+			samples=200,
 			smooth,
 			thick,
 			color=red
 			] 
-			{ 0.21 / (x * 34.3e-9 * sqrt( 630^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) )};
-			\addlegendentry{$U_c - \text{теория}$}
+			{ 0.21 / (x * 34.3e-9 * sqrt( (0.63*1000)^2 + (x * 0.105545 - 1/(x * 34.3e-9) )^2 ) ) };
+			\addlegendentry{$U_C$ — теория}
 			
 			% Добавляем точки
 			\addplot[only marks, mark=*, mark size=1pt, color=orange] coordinates {
@@ -206,16 +206,16 @@
 			};
 			\addlegendentry{$U_r - \text{практика}$}
 			
-			% U_C (напряжение на конденсаторе)
+			% Теоретическая кривая U_R
 			\addplot[
-			domain=9000:32000,
-			samples=300,
+			domain=1000:50000,
+			samples=200,
 			smooth,
 			thick,
-			color=orange
+			color=green!60!black
 			] 
-			{ 0.21 * 630 / sqrt( 630^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 )};
-			\addlegendentry{$U_r - \text{теория}$}
+			{ 0.21 * (0.63*1000) / sqrt( (0.63*1000)^2 + (x * 0.105545 - 1/(x * 34.3e-9) )^2 ) };
+			\addlegendentry{$U_R$ — теория}
 		\end{axis}
 	\end{tikzpicture}
 \end{document}

@@ -72,16 +72,18 @@
 				(26389, 0.0145)
 				(31415, 0.0101)
 			};
+			\addlegendentry{$U_R$ — практика}
 			
-			% Теоретическая кривая
+			% Теоретическая кривая U_R
 			\addplot[
-			domain=9000:32000,
+			domain=1000:50000,
 			samples=200,
 			smooth,
 			thick,
-			color=blue
+			color=red
 			] 
-			{ 0.21 * (0.121*1000) / sqrt( (0.121*1000)^2 + (x * 0.18 - 1/(x * 34.3e-9) )^2 ) };
+			{ 0.21 * (0.121*1000) / sqrt( (0.121*1000)^2 + (x * 0.105545 - 1/(x * 34.3e-9) )^2 ) };
+			\addlegendentry{$U_R$ — теория}
 		\end{axis}
 	\end{tikzpicture}
 \end{document}
